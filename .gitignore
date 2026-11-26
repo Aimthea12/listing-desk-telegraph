@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Local run outputs (samples/ holds the curated examples)
+runs/
+ledger/
+
+# Secrets — never commit wallet or key material.
+# The Telegraph MCP wallet lives at ~/.telegraph/wallet.json, OUTSIDE this
+# repo; nothing in this project needs a key file.
+wallet.json
+*.key
+*.pem
+.env
+.env.*
+!.env.example
