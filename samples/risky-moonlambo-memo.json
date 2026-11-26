@@ -1,0 +1,232 @@
+{
+  "run_id": "9a6dd624-b40b-41ff-8358-ff39cc08adfd",
+  "started_at": "2026-11-26T03:43:56.142Z",
+  "input": {
+    "block": 21000000,
+    "chain": "ethereum",
+    "codeSnippet": "// Deliberately risky fixture contract: unlimited owner mint, blacklist, adjustable 100% tax.\ncontract MoonLamboYield {\n    address public owner;\n    uint256 public taxPercent = 25;\n    mapping(address => uint256) public balanceOf;\n    mapping(address => bool) public blacklisted;\n    constructor() { owner = msg.sender; }\n    function mint(address to, uint256 amount) external { require(msg.sender == owner); balanceOf[to] += amount; }\n    function setTax(uint256 pct) external { require(msg.sender == owner); taxPercent = pct; } // can be set to 100\n    function blacklist(address who) external { require(msg.sender == owner); blacklisted[who] = true; }\n    function transfer(address to, uint256 value) external returns (bool) {\n        require(!blacklisted[msg.sender], \"blocked\");\n        uint256 tax = value * taxPercent / 100;\n        balanceOf[msg.sender] -= value;\n        balanceOf[owner] += tax;\n        balanceOf[to] += value - tax;\n        return true;\n    }\n}",
+    "contractAddress": "0x000000000000000000000000000000000000dEaD",
+    "entityName": "MoonLambo Financial Group",
+    "expectedVerdict": "REVIEW or REJECT",
+    "fixtureNote": "Fully synthetic project (dead address, invented names) whose code excerpt carries classic rug-pull mechanics. A working desk must not LIST it: audit/code-review findings should drive REVIEW/REJECT.",
+    "socialHandle": "@moonlamboyield_official",
+    "tokenName": "MoonLambo Yield Token (MLY)"
+  },
+  "block": 21000000,
+  "verdict": "REVIEW",
+  "verdict_policy": "v2 (signals: hard / structured-critical reject alone; red flags need >= 2 intents; soft + incomplete force REVIEW)",
+  "reasons": [
+    "CODE_REVIEW_GENERAL: structured verdict field is negative (not terminal) — \"verdict\": \"Request changes\"",
+    "SOCIAL: bot_score 0.8 with miner verdict \"likely_human\" — soft signal only (social miners score a bare handle string and contradict themselves across runs; quoted verbatim, cannot reject)",
+    "SMART_CONTRACT_AUDIT_GENERAL: no critical/high finding in the returned answer",
+    "ONCHAIN_METRIC_VERIFY_GENERAL: answered (factual read; no risk signal derived)",
+    "SANCTIONS: no match reported (matched=false, match_score 0)"
+  ],
+  "signals": [
+    {
+      "intent": "CODE_REVIEW_GENERAL",
+      "kind": "red",
+      "detail": "CODE_REVIEW_GENERAL: structured verdict field is negative (not terminal) — \"verdict\": \"Request changes\""
+    },
+    {
+      "intent": "SOCIAL_BOT_DETECTION_GENERAL",
+      "kind": "soft",
+      "detail": "SOCIAL: bot_score 0.8 with miner verdict \"likely_human\" — soft signal only (social miners score a bare handle string and contradict themselves across runs; quoted verbatim, cannot reject)"
+    }
+  ],
+  "total_cost_usd": 0.04,
+  "checks": [
+    {
+      "intent": "SMART_CONTRACT_AUDIT_GENERAL",
+      "status": "answered",
+      "latency_ms": 5072,
+      "cost_usd": 0,
+      "error": null,
+      "answer": {
+        "value": "I am sorry, but I cannot audit the smart contract for the token \"MoonLambo Yield Token (MLY)\" deployed at `0x000000000000000000000000000000000000dEaD` on Ethereum. This address is the \"zero address,\" which is a special address that cannot hold or execute smart contracts. Therefore, no token contract is deployed there.\n\nTo provide an audit, I would need the correct contract address for the MoonLambo Yield Token (MLY)."
+      },
+      "fulfillment": {
+        "rail": "escrow",
+        "billed_usd": 0.26,
+        "authorized_usd": 0.26
+      },
+      "receipt": null
+    },
+    {
+      "intent": "CODE_REVIEW_GENERAL",
+      "status": "answered",
+      "latency_ms": 64152,
+      "cost_usd": 0.01,
+      "error": null,
+      "answer": {
+        "verdict": "Request changes",
+        "findings": null,
+        "summary": null
+      },
+      "fulfillment": {
+        "rail": "escrow",
+        "billed_usd": 0.01,
+        "authorized_usd": 0.26,
+        "receipt": {
+          "receipt_hash": "0x40bf63413bb74068038d7ac6896153ee3da0c21c730535abc8b2c96fd7f143cb",
+          "rail": "escrow",
+          "payer": "0x6ddb8ef55d9d2f4df5670f282de25dc2c64e4f71",
+          "miner": "6126",
+          "intent": "CODE_REVIEW_GENERAL",
+          "amount_uusdc": "10000",
+          "epoch_id": 58,
+          "settlement": "epoch",
+          "chain": "telegraph",
+          "timestamp": 1795664700
+        }
+      },
+      "receipt": {
+        "receipt_hash": "0x40bf63413bb74068038d7ac6896153ee3da0c21c730535abc8b2c96fd7f143cb",
+        "rail": "escrow",
+        "payer": "0x6ddb8ef55d9d2f4df5670f282de25dc2c64e4f71",
+        "miner": "6126",
+        "intent": "CODE_REVIEW_GENERAL",
+        "amount_uusdc": "10000",
+        "epoch_id": 58,
+        "settlement": "epoch",
+        "chain": "telegraph",
+        "timestamp": 1795664700
+      }
+    },
+    {
+      "intent": "ONCHAIN_METRIC_VERIFY_GENERAL",
+      "status": "answered",
+      "latency_ms": 26632,
+      "cost_usd": 0.01,
+      "error": null,
+      "answer": {
+        "balance_gwei": 12620102244847.045,
+        "address": "0x000000000000000000000000000000000000dEaD",
+        "block": "21000000",
+        "chain": "ethereum",
+        "tx_count": 158649
+      },
+      "fulfillment": {
+        "rail": "escrow",
+        "billed_usd": 0.01,
+        "authorized_usd": 0.26,
+        "receipt": {
+          "receipt_hash": "0x9ebc3e6082a34a8731f118aa9e785a5444be9886b0c92c29e63c63f09cb03938",
+          "rail": "escrow",
+          "payer": "0x6ddb8ef55d9d2f4df5670f282de25dc2c64e4f71",
+          "miner": "6126",
+          "intent": "ONCHAIN_METRIC_VERIFY_GENERAL",
+          "amount_uusdc": "10000",
+          "epoch_id": 58,
+          "settlement": "epoch",
+          "chain": "telegraph",
+          "timestamp": 1795664663
+        }
+      },
+      "receipt": {
+        "receipt_hash": "0x9ebc3e6082a34a8731f118aa9e785a5444be9886b0c92c29e63c63f09cb03938",
+        "rail": "escrow",
+        "payer": "0x6ddb8ef55d9d2f4df5670f282de25dc2c64e4f71",
+        "miner": "6126",
+        "intent": "ONCHAIN_METRIC_VERIFY_GENERAL",
+        "amount_uusdc": "10000",
+        "epoch_id": 58,
+        "settlement": "epoch",
+        "chain": "telegraph",
+        "timestamp": 1795664663
+      }
+    },
+    {
+      "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+      "status": "answered",
+      "latency_ms": 28679,
+      "cost_usd": 0.01,
+      "error": null,
+      "answer": {
+        "name": "MoonLambo Financial Group",
+        "matched": false,
+        "matches": null,
+        "lists": [
+          "US OFAC SDN and non-SDN Consolidated lists (published 2026-11-09)",
+          "UN Security Council Consolidated List (published 2026-11-12)",
+          "EU Consolidated Financial Sanctions List (published 2026-10-23)",
+          "UK Sanctions List (published 2026-11-10)"
+        ],
+        "match_score": 0
+      },
+      "fulfillment": {
+        "rail": "escrow",
+        "billed_usd": 0.01,
+        "authorized_usd": 0.26,
+        "receipt": {
+          "receipt_hash": "0x4912946a6e613175041680e4ba8d6caf06374cf2b1701d673d77a4c20ef32223",
+          "rail": "escrow",
+          "payer": "0x6ddb8ef55d9d2f4df5670f282de25dc2c64e4f71",
+          "miner": "5298",
+          "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+          "amount_uusdc": "10000",
+          "epoch_id": 58,
+          "settlement": "epoch",
+          "chain": "telegraph",
+          "timestamp": 1795664665
+        }
+      },
+      "receipt": {
+        "receipt_hash": "0x4912946a6e613175041680e4ba8d6caf06374cf2b1701d673d77a4c20ef32223",
+        "rail": "escrow",
+        "payer": "0x6ddb8ef55d9d2f4df5670f282de25dc2c64e4f71",
+        "miner": "5298",
+        "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+        "amount_uusdc": "10000",
+        "epoch_id": 58,
+        "settlement": "epoch",
+        "chain": "telegraph",
+        "timestamp": 1795664665
+      }
+    },
+    {
+      "intent": "SOCIAL_BOT_DETECTION_GENERAL",
+      "status": "answered",
+      "latency_ms": 26680,
+      "cost_usd": 0.01,
+      "error": null,
+      "answer": {
+        "account": "@moonlamboyield_official",
+        "verdict": "likely_human",
+        "bot_score": 0.8,
+        "signals": [
+          "likely_human - the handle appears to be a straightforward, brand‑style username without the repetitive patterns, random characters, or overly promotional language typical of automated bot accounts."
+        ]
+      },
+      "fulfillment": {
+        "rail": "escrow",
+        "billed_usd": 0.01,
+        "authorized_usd": 0.26,
+        "receipt": {
+          "receipt_hash": "0xf4c1de543fda07a621358c254c6db0f62067c713afdd2ded0503eaa1865a10c4",
+          "rail": "escrow",
+          "payer": "0x6ddb8ef55d9d2f4df5670f282de25dc2c64e4f71",
+          "miner": "6119",
+          "intent": "SOCIAL_BOT_DETECTION_GENERAL",
+          "amount_uusdc": "10000",
+          "epoch_id": 58,
+          "settlement": "epoch",
+          "chain": "telegraph",
+          "timestamp": 1795664663
+        }
+      },
+      "receipt": {
+        "receipt_hash": "0xf4c1de543fda07a621358c254c6db0f62067c713afdd2ded0503eaa1865a10c4",
+        "rail": "escrow",
+        "payer": "0x6ddb8ef55d9d2f4df5670f282de25dc2c64e4f71",
+        "miner": "6119",
+        "intent": "SOCIAL_BOT_DETECTION_GENERAL",
+        "amount_uusdc": "10000",
+        "epoch_id": 58,
+        "settlement": "epoch",
+        "chain": "telegraph",
+        "timestamp": 1795664663
+      }
+    }
+  ]
+}
